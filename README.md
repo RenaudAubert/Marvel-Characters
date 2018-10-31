@@ -1,8 +1,8 @@
 # Marvel Characters App
 
-This is a boilerplate to build a full stack web application using React, Node.js, Express and Webpack. It is also configured with webpack-dev-server, eslint, prettier and babel.
+Single-page App using Marvel API.
 
-- [simple-react-full-stack](#simple-react-full-stack)
+- [Marvel Characters App](#Marvel Characters App)
   - [Introduction](#introduction)
     - [Development mode](#development-mode)
     - [Production mode](#production-mode)

@@ -2,6 +2,7 @@ const express = require('express');
 const request = require('request');
 const md5     = require('md5');
 
+// Keys required to access Marvel API
 const privateKey = '580833e43d09102bf65292a60db711e1639c0ee1';
 const publicKey = 'fc0bbfff7046baab7764e1ef9a394a25';
 const port = 8080;
