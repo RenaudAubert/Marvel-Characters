@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 
 export const FavElement = (props) => {
   const { character, onDeleteFav } = props;
@@ -8,29 +10,30 @@ export const FavElement = (props) => {
   };
 
   return (
-    <a className="dropdown-item" href="#" key={character.id}>
+    <p className="dropdown-item" key={character.id}>
       {character.name}
       <button type="button" className="close" onClick={deleteFav}>
         <span aria-hidden="true">&times;</span>
       </button>
-    </a>
+    </p>
   );
 };
 
 export const Header = (props) => {
-  const { favChar, onDeleteFav } = props;
+  const { favCharacters, onDeleteFav } = props;
 
   // for each favorite character create a favElement component
-  const favList = favChar.map(character => <FavElement character={character} onDeleteFav={onDeleteFav} key={character.id} />);
-  console.log('favList: ', favList);
+  const favList = favCharacters.map(character => <FavElement character={character} onDeleteFav={onDeleteFav} key={character.id} />);
 
   return (
     <header>
       <div className="navbar navbar-dark bg-dark box-shadow">
         <div className="container d-flex justify-content-between">
-          <a href="#" className="navbar-brand d-flex align-items-center">
-            <strong>Marvel Heroes</strong>
-          </a>
+          <Link to="/">
+            <p className="navbar-brand d-flex align-items-center">
+              Marvel Heroes
+            </p>
+          </Link>
           <div className="dropdown">
             <button className="btn btn-secondary" type="button" id="dropdownFavorite" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               My Favorite
@@ -70,7 +73,7 @@ FavElement.propTypes = {
 };
 
 Header.propTypes = {
-  favChar: PropTypes.arrayOf(PropTypes.object).isRequired,
+  favCharacters: PropTypes.arrayOf(PropTypes.object).isRequired,
   onDeleteFav: PropTypes.func.isRequired
 };
 

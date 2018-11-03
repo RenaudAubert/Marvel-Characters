@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import DetailedCharacter from './DetailedCharacter';
+import CharacterList from './CharacterList';
 import Character from './Character';
 import { Header, Footer } from './layout';
 import './App.css';
@@ -17,7 +20,7 @@ export default class App extends Component {
 
   // Get data from Marvel API if component is mounted
   componentDidMount() {
-    fetch('/api/getMarvelCharacters')
+    fetch('/api/characters')
       .then(res => res.json())
       .then(characters => this.setState({ characters }));
   }
@@ -25,6 +28,7 @@ export default class App extends Component {
   // Add new id into favorite array
   handleFavClick(id) {
     const { characters, favCharacters } = this.state;
+
     // If id already in favCharacters delete character from favorite
     if (favCharacters.findIndex(character => character.id === id) !== -1) {
       this.handleDeleteFav(id);
@@ -49,31 +53,38 @@ export default class App extends Component {
 
   render() {
     const { characters, favCharacters } = this.state;
-    console.log('characters: ', characters, ' | favorites: ', favCharacters);
-    let characterList;
-    if (characters.data) {
-      characterList = characters.data.results.map((character) => {
-        // is current character in favCharacters array?
-        const isFav = favCharacters.find(fav => character.id === fav.id) !== undefined;
-        // For each character create a Character component (card in the view)
-        return <Character isFav={isFav} character={character} key={character.id} onFavClicked={this.handleFavClick} />;
-      });
-    } else {
-      characterList = <p>No characters found</p>;
-    }
-    // Layout composed of header, main and footer component
+    const { match } = this.props;
+
+    // View composed of Header, Main et and Footer component
     return (
       <div>
-        <Header favChar={favCharacters} onDeleteFav={this.handleDeleteFav} />
-        <main role="main">
-          <div className="album py-5 bg-light">
-            <div className="container">
-              <div className="row">
-                {characterList}
-              </div>
-            </div>
-          </div>
-        </main>
+        <Header favCharacters={favCharacters} onDeleteFav={this.handleDeleteFav} />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <CharacterList
+                {...props}
+                characters={characters}
+                favCharacters={favCharacters}
+                onFavClicked={this.handleFavClick}
+              />
+            )}
+          />
+          <Route
+            path='/characters/:id'
+            render={props => {
+              return (
+                <DetailedCharacter
+                  {...props}
+                  favCharacters={favCharacters}
+                  onFavClicked={this.handleFavClick}
+                />
+              );
+            }}
+          />
+        </Switch>
         <Footer attributionText={characters.attributionText} />
       </div>
     );
