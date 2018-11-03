@@ -10,7 +10,7 @@ export const FavElement = (props) => {
 
   return (
     <div className="btn-group" role="group" aria-label="Favorite List">
-      <Link to={`/${character.id}`} className="dropdown-item btn btn-secondary">
+      <Link to={`/${character.id}`} className="dropdown-item btn btn-secondary text-center">
         {character.name}
       </Link>
       <button type="button" className="close btn btn-secondary" onClick={deleteFav}>
@@ -32,17 +32,15 @@ export const Header = (props) => {
     <header>
       <div className="navbar navbar-dark bg-dark box-shadow">
         <div className="container d-flex justify-content-between">
-          <Link to="/">
-            <p className="navbar-brand d-flex align-items-center">
-              Marvel Heroes
-            </p>
+          <Link to="/" className="navbar-brand d-flex align-items-center">
+            Marvel Heroes
           </Link>
           <div className="dropdown">
             <button className="btn btn-secondary" type="button" id="dropdownFavorite" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              My Favorite
+              My Favorites
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              {favList.length > 0 ? favList : <p>No favorite characters</p>}
+              {favList.length > 0 ? favList : <p className="text-center">No favorite characters</p>}
             </div>
           </div>
         </div>
@@ -54,11 +52,8 @@ export const Header = (props) => {
 export const Footer = (props) => {
   const { attributionText } = props;
   return (
-    <footer className="text-muted">
+    <footer className="footer text-muted">
       <div className="container">
-        <p className="float-right">
-          <a href="/#">Back to top</a>
-        </p>
         {attributionText}
       </div>
     </footer>

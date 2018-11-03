@@ -35,11 +35,11 @@ export default class Character extends Component {
             <div className="btn-group">
               <Link to={`/characters/${character.id}`}>
                 <button type="button" className="btn btn-sm btn-outline-secondary">
-                  <i className="fas fa-search" />
+                  <i className="fas fa-search fa-lg" />
                 </button>
               </Link>
               <button type="button" className="btn btn-sm btn-outline-secondary" onClick={this.favClick}>
-                <i className={isFav ? 'fas fa-star' : 'far fa-star'} />
+                <i className={`${isFav ? 'fas fa-star' : 'far fa-star'} fa-lg`} />
               </button>
             </div>
           </div>

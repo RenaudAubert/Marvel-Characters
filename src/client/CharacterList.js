@@ -13,7 +13,7 @@ const CharacterList = (props) => {
       const isFav = favCharacters.find(fav => character.id === fav.id) !== undefined;
       // For each character create a Character component (card in the view)
       return (
-        <div className="col-md-4" key={character.id}>
+        <div className="col-md-4 pt-2" key={character.id}>
           <Character
             isFav={isFav}
             character={character}

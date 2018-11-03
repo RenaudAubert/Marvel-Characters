@@ -51,18 +51,13 @@ export default class DetailedCharacter extends Component {
       returnedDOM = (
         <div>
           <div className="row">
-            <Link to="/">
-              <i className="fas fa-arrow-left fa-4x" />
-            </Link>
-          </div>
-          <div className="row">
-            <div className="col-md-5">
+            <div className="col-lg-5">
               <img className="card-img-left flex-auto d-none d-md-block" src={imgURL} alt="" />
             </div>
-            <div className="col-md-7">
+            <div className="col-lg-7">
               <h5>
                 <LinkType character={character} type="detail" text={character.name} />
-                <button type="button" className="btn btn-sm btn-outline-secondary" id="favButton" onClick={this.favClick}>
+                <button type="button" className="btn btn-sm btn-outline-secondary align-top pl-1" id="favButton" onClick={this.favClick}>
                   <i className={`${isFav ? 'fas fa-star' : 'far fa-star'} text-warning fa-lg`} />
                 </button>
               </h5>
@@ -72,12 +67,10 @@ export default class DetailedCharacter extends Component {
                 <div className="col-sm-6">
                   <h6>
                     Comics
-                    <LinkType character={character} type="comiclink" text={`(${character.comics.available})`} />
+                    <LinkType character={character} type="comiclink" text={ `(${character.comics.available})`} />
                   </h6>
                   {comicsList('comics', 4)}
-                  <p className="text-center">
-                    <LinkType character={character} type="comiclink" text="More Comics" />
-                  </p>
+                  <LinkType character={character} type="comiclink" text="Details" />
                 </div>
                 <div className="col-sm-6">
                   <h6>Series</h6>
@@ -91,8 +84,13 @@ export default class DetailedCharacter extends Component {
     }
 
     return (
-      <div className="container">
-        {returnedDOM}
+      <div>
+        <Link to="/" className="pl-2">
+          <i className="far fa-arrow-alt-circle-left fa-3x text-secondary" />
+        </Link>
+        <div className="container pt-2">
+          {returnedDOM}
+        </div>
       </div>
     );
   }
