@@ -42,3 +42,28 @@ a.custom-card,
 a.custom-card:hover {
   color: inherit;
 }
+
+.card-img-left {
+  height: 100%;
+  border-radius: 3px 0 0 3px;
+}
+
+.flex-auto {
+  -ms-flex: 0 0 auto;
+  -webkit-box-flex: 0;
+  flex: 0 0 auto;
+}
+
+.h-250 { height: 250px; }
+@media (min-width: 768px) {
+  .h-md-250 { height: 250px; }
+}
+
+.border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+#favButton, #returnButton {
+padding: 0;
+border: none;
+background: none;
+}

@@ -23,7 +23,7 @@ export default class Character extends Component {
 
     return (
       <div className="h-100 card mb-4 box-shadow">
-        <Link to={`/characters/${character.id}`}>
+        <Link to={`/${character.id}`}>
           <img className="card-img-top" src={imgURL} alt="" />
         </Link>
         <div className="card-body">

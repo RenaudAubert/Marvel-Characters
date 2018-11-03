@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import DetailedCharacter from './DetailedCharacter';
 import CharacterList from './CharacterList';
-import Character from './Character';
 import { Header, Footer } from './layout';
 import './App.css';
 
@@ -53,7 +52,6 @@ export default class App extends Component {
 
   render() {
     const { characters, favCharacters } = this.state;
-    const { match } = this.props;
 
     // View composed of Header, Main et and Footer component
     return (
@@ -73,16 +71,14 @@ export default class App extends Component {
             )}
           />
           <Route
-            path='/characters/:id'
-            render={props => {
-              return (
-                <DetailedCharacter
-                  {...props}
-                  favCharacters={favCharacters}
-                  onFavClicked={this.handleFavClick}
-                />
-              );
-            }}
+            path="/:id"
+            render={props => (
+              <DetailedCharacter
+                {...props}
+                favCharacters={favCharacters}
+                onFavClicked={this.handleFavClick}
+              />
+            )}
           />
         </Switch>
         <Footer attributionText={characters.attributionText} />

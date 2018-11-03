@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-
 export const FavElement = (props) => {
   const { character, onDeleteFav } = props;
   const deleteFav = () => {
@@ -10,12 +9,14 @@ export const FavElement = (props) => {
   };
 
   return (
-    <p className="dropdown-item" key={character.id}>
-      {character.name}
-      <button type="button" className="close" onClick={deleteFav}>
-        <span aria-hidden="true">&times;</span>
+    <div className="btn-group" role="group" aria-label="Favorite List">
+      <Link to={`/${character.id}`} className="dropdown-item btn btn-secondary">
+        {character.name}
+      </Link>
+      <button type="button" className="close btn btn-secondary" onClick={deleteFav}>
+        <i className="fa fa-trash" aria-hidden="true" />
       </button>
-    </p>
+    </div>
   );
 };
 
@@ -23,7 +24,9 @@ export const Header = (props) => {
   const { favCharacters, onDeleteFav } = props;
 
   // for each favorite character create a favElement component
-  const favList = favCharacters.map(character => <FavElement character={character} onDeleteFav={onDeleteFav} key={character.id} />);
+  const favList = favCharacters.map(character => (
+    <FavElement character={character} onDeleteFav={onDeleteFav} key={character.id} />
+  ));
 
   return (
     <header>
@@ -54,7 +57,7 @@ export const Footer = (props) => {
     <footer className="text-muted">
       <div className="container">
         <p className="float-right">
-          <a href="#">Back to top</a>
+          <a href="/#">Back to top</a>
         </p>
         {attributionText}
       </div>
