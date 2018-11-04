@@ -17,7 +17,7 @@ export default class App extends Component {
     this.handleDeleteFav = this.handleDeleteFav.bind(this);
   }
 
-  // Get data from Marvel API if component is mounted
+  // Get characters from Marvel API if component is mounted
   componentDidMount() {
     fetch('/api/characters')
       .then(res => res.json())
@@ -53,7 +53,8 @@ export default class App extends Component {
   render() {
     const { characters, favCharacters } = this.state;
 
-    // View composed of Header, Main et and Footer component
+    // View composed of a header, main and foter component
+    // Switch is used to render the first component that match the path
     return (
       <div>
         <Header favCharacters={favCharacters} onDeleteFav={this.handleDeleteFav} />
@@ -82,7 +83,7 @@ export default class App extends Component {
               )}
             />
           </Switch> :
-          <p className="text-center">An error occured</p>
+          <div>No characters found</div>
         }
         <Footer attributionText={characters.attributionText} />
       </div>

@@ -14,7 +14,6 @@
   "author": "Renaud Aubert",
   "license": "ISC",
   "dependencies": {
-    "@babel/jest": "^23.6.0",
     "bootstrap": "^4.1.3",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
@@ -25,7 +24,6 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-router-dom": "^4.3.1",
-    "react-test-renderer": "^16.6.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
@@ -45,7 +43,6 @@
     "eslint-plugin-react": "^7.7.0",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
-    "jest": "^23.6.0",
     "nodemon": "^1.17.3",
     "style-loader": "^0.23.0",
     "url-loader": "^1.0.1",

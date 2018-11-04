@@ -28,19 +28,6 @@ const cache = duration => (req, res, next) => {
   next();
 };
 
-// route middleware to validate :id
-router.param('id', (req, res, next, id) => {
-  if (Number.isNaN(id)) {
-    next('route');
-  }
-  console.log(`doing id validations on ${id}`);
-
-  // once validation is done save the new item in the req
-  req.id = id;
-  // go to the next middleware
-  next();
-});
-
 // route without parameters (http://localhost:8080/characters)
 router.get('/', cache(86400), (req, res) => {
   const timestamp = Date.now();
@@ -58,10 +45,10 @@ router.get('/', cache(86400), (req, res) => {
 });
 
 // route with parameters (http://localhost:8080/characters/:id)
-router.get('/:id', cache(86400), (req, res) => {
+router.get('^/:id([0-9]{7})', cache(86400), (req, res) => {
   const timestamp = Date.now();
   const hash = md5(timestamp + privateKey + publicKey);
-  let url = `http://gateway.marvel.com/v1/public/characters/${req.id}`;
+  let url = `http://gateway.marvel.com/v1/public/characters/${req.params.id}`;
   url += `?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`;
   console.log(url);
 

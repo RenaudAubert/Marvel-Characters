@@ -14,6 +14,7 @@ export default class DetailedCharacter extends Component {
   componentDidMount() {
     const { match } = this.props;
 
+    // Fetch a single character using id
     fetch(`/api/characters/${match.params.id}`)
       .then(res => res.json())
       .then(character => this.setState({ character }));
