@@ -55,6 +55,7 @@ npm start (or yarn start)
 
 ### Folder Structure
 
+```bash
 .
 ├── public
 │   └── index.html
@@ -75,6 +76,7 @@ npm start (or yarn start)
 ├── nodemon.json                     # nodemon configuration file
 ├── README.md
 └── webpack.config.js                # Webpack configuration file
+```
 
 ### Babel
 
