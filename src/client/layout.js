@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 export const FavElement = (props) => {
   const { character, onDeleteFav } = props;
+
   const deleteFav = () => {
     onDeleteFav(character.id);
   };
@@ -60,6 +61,32 @@ export const Footer = (props) => {
   );
 };
 
+export const FavButton = (props) => {
+  const { characterId, isFav, onFavClicked } = props;
+
+  const favClick = () => {
+    onFavClicked(characterId);
+  };
+
+  return (
+    <button type="button" className="btn btn-sm fa-button" onClick={favClick}>
+      <i className={`${isFav ? 'fas fa-star' : 'far fa-star'} text-warning fa-lg`} />
+    </button>
+  );
+};
+
+// Return link if type (detail, wiki, comiclink) is found
+export const LinkType = (props) => {
+  const { character, type, text } = props;
+
+  let link = text;
+  const urlType = character.urls.find(url => url.type === type);
+  if (urlType !== undefined) {
+    link = <a href={urlType.url} target="_blank" rel="noopener noreferrer">{text}</a>;
+  }
+  return link;
+};
+
 FavElement.propTypes = {
   character: PropTypes.shape({
     id: PropTypes.number,
@@ -81,4 +108,30 @@ Footer.propTypes = {
 
 Footer.defaultProps = {
   attributionText: ''
+};
+
+FavButton.propTypes = {
+  characterId: PropTypes.number.isRequired,
+  isFav: PropTypes.bool,
+  onFavClicked: PropTypes.func.isRequired
+};
+
+FavButton.defaultProps = {
+  isFav: false
+};
+
+LinkType.propTypes = {
+  character: PropTypes.shape({
+    id: PropTypes.number,
+    description: PropTypes.string,
+    name: PropTypes.string,
+    thumbnail: PropTypes.object,
+  }).isRequired,
+  type: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
+};
+
+LinkType.defaultProps = {
+  type: 'detail',
+  text: 'detail'
 };

@@ -58,32 +58,34 @@ export default class App extends Component {
     return (
       <div>
         <Header favCharacters={favCharacters} onDeleteFav={this.handleDeleteFav} />
-        {characters.code === 200 ?
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={props => (
-                <CharacterList
-                  {...props}
-                  characters={characters}
-                  favCharacters={favCharacters}
-                  onFavClicked={this.handleFavClick}
-                />
-              )}
-            />
-            <Route
-              path="/:id"
-              render={props => (
-                <DetailedCharacter
-                  {...props}
-                  favCharacters={favCharacters}
-                  onFavClicked={this.handleFavClick}
-                />
-              )}
-            />
-          </Switch> :
-          <div>No characters found</div>
+        {(characters.code === 200 && characters.data)
+          ? (
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={props => (
+                  <CharacterList
+                    {...props}
+                    characters={characters.data.results}
+                    favCharacters={favCharacters}
+                    onFavClicked={this.handleFavClick}
+                  />
+                )}
+              />
+              <Route
+                path="/:id"
+                render={props => (
+                  <DetailedCharacter
+                    {...props}
+                    favCharacters={favCharacters}
+                    onFavClicked={this.handleFavClick}
+                  />
+                )}
+              />
+            </Switch>
+          )
+          : <div>No characters found</div>
         }
         <Footer attributionText={characters.attributionText} />
       </div>

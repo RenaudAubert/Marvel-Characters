@@ -4,11 +4,10 @@ import Character from './Character';
 
 const CharacterList = (props) => {
   const { characters, favCharacters, onFavClicked } = props;
-  console.log('characters: ', characters, ' | favorites: ', favCharacters);
   let characterList = <p>No characters found</p>;
 
-  if (characters.data) {
-    characterList = characters.data.results.map((character) => {
+  if (characters.length > 0) {
+    characterList = characters.map((character) => {
       // is current character in favCharacters array?
       const isFav = favCharacters.find(fav => character.id === fav.id) !== undefined;
       // For each character create a Character component (card in the view)
@@ -40,9 +39,7 @@ const CharacterList = (props) => {
 export { CharacterList as default };
 
 CharacterList.propTypes = {
-  characters: PropTypes.shape({
-    data: PropTypes.object,
-  }).isRequired,
+  characters: PropTypes.arrayOf(PropTypes.object).isRequired,
   favCharacters: PropTypes.arrayOf(PropTypes.object).isRequired,
   onFavClicked: PropTypes.func.isRequired,
 };

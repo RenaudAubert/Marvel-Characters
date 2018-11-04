@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { FavButton, LinkType } from './layout';
 
 export default class DetailedCharacter extends Component {
   constructor(props) {
     super(props);
     this.state = { character: {} };
-
-    this.favClick = this.favClick.bind(this);
   }
 
   // Get data from Marvel API if component is mounted
@@ -20,18 +19,9 @@ export default class DetailedCharacter extends Component {
       .then(character => this.setState({ character }));
   }
 
-  favClick() {
-    const { onFavClicked } = this.props;
-    const { character } = this.state;
-
-    if (character.data) {
-      onFavClicked(character.data.results[0].id);
-    }
-  }
-
   // Render each character card with image, name and description
   render() {
-    const { favCharacters } = this.props;
+    const { favCharacters, onFavClicked } = this.props;
     let { character } = this.state;
     let returnedDOM = <div />;
 
@@ -58,9 +48,7 @@ export default class DetailedCharacter extends Component {
             <div className="col-lg-7">
               <h5>
                 <LinkType character={character} type="detail" text={character.name} />
-                <button type="button" className="btn btn-sm pl-1 fa-button" onClick={this.favClick}>
-                  <i className={`${isFav ? 'fas fa-star' : 'far fa-star'} align-top text-warning fa-lg`} />
-                </button>
+                <FavButton characterId={character.id} isFav={isFav} onFavClicked={onFavClicked} />
               </h5>
               <h6>Description</h6>
               <p>{description}</p>
@@ -82,7 +70,7 @@ export default class DetailedCharacter extends Component {
           </div>
         </div>
       );
-    } else if (character.code === 404){
+    } else if (character.code === 404) {
       returnedDOM = (
         <p className="text-center text-danger">
           <strong>No character found</strong>
@@ -103,18 +91,6 @@ export default class DetailedCharacter extends Component {
   }
 }
 
-// Return link if type (detail, wiki, comiclink) is found
-const LinkType = (props) => {
-  const { character, type, text } = props;
-
-  let link = text;
-  const urlType = character.urls.find(url => url.type === type);
-  if (urlType !== undefined) {
-    link = <a href={urlType.url} target="_blank" rel="noopener noreferrer">{text}</a>;
-  }
-  return link;
-};
-
 DetailedCharacter.propTypes = {
   favCharacters: PropTypes.arrayOf(PropTypes.object).isRequired,
   onFavClicked: PropTypes.func.isRequired,
@@ -123,20 +99,4 @@ DetailedCharacter.propTypes = {
       id: PropTypes.node,
     }).isRequired,
   }).isRequired
-};
-
-LinkType.propTypes = {
-  character: PropTypes.shape({
-    id: PropTypes.number,
-    description: PropTypes.string,
-    name: PropTypes.string,
-    thumbnail: PropTypes.object,
-  }).isRequired,
-  type: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
-};
-
-LinkType.defaultProps = {
-  type: 'detail',
-  text: 'detail'
 };
