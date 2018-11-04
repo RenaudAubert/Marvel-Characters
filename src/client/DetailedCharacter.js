@@ -57,8 +57,8 @@ export default class DetailedCharacter extends Component {
             <div className="col-lg-7">
               <h5>
                 <LinkType character={character} type="detail" text={character.name} />
-                <button type="button" className="btn btn-sm btn-outline-secondary align-top pl-1" id="favButton" onClick={this.favClick}>
-                  <i className={`${isFav ? 'fas fa-star' : 'far fa-star'} text-warning fa-lg`} />
+                <button type="button" className="btn btn-sm pl-1 fa-button" onClick={this.favClick}>
+                  <i className={`${isFav ? 'fas fa-star' : 'far fa-star'} align-top text-warning fa-lg`} />
                 </button>
               </h5>
               <h6>Description</h6>

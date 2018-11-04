@@ -33,13 +33,11 @@ export default class Character extends Component {
         <div className="card-footer text-muted">
           <div className="d-flex justify-content-between align-items-center">
             <div className="btn-group">
-              <Link to={`/characters/${character.id}`}>
-                <button type="button" className="btn btn-sm btn-outline-secondary">
-                  <i className="fas fa-search fa-lg" />
-                </button>
+              <Link to={`/${character.id}`} className="text-dark">
+                <i className="fas fa-search fa-lg align-bottom" />
               </Link>
-              <button type="button" className="btn btn-sm btn-outline-secondary" onClick={this.favClick}>
-                <i className={`${isFav ? 'fas fa-star' : 'far fa-star'} fa-lg`} />
+              <button type="button" className="btn btn-sm fa-button" onClick={this.favClick}>
+                <i className={`${isFav ? 'fas fa-star' : 'far fa-star'} text-warning fa-lg`} />
               </button>
             </div>
           </div>

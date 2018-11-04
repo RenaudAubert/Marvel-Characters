@@ -29,7 +29,7 @@
 
 footer {
   padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-bottom: 1rem;
 }
 
 footer p {
@@ -62,15 +62,10 @@ a.custom-card:hover {
 .border-top { border-top: 1px solid #e5e5e5; }
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
 
-#favButton, #returnButton {
-padding: 0;
+.fa-button {
+padding: 1px;
 border: none;
 background: none;
-}
-
-#favButton:focus,  {
-  outline: none;
-  box-shadow: none;
 }
 
 html { height: 100%; }
