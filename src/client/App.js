@@ -57,30 +57,33 @@ export default class App extends Component {
     return (
       <div>
         <Header favCharacters={favCharacters} onDeleteFav={this.handleDeleteFav} />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <CharacterList
-                {...props}
-                characters={characters}
-                favCharacters={favCharacters}
-                onFavClicked={this.handleFavClick}
-              />
-            )}
-          />
-          <Route
-            path="/:id"
-            render={props => (
-              <DetailedCharacter
-                {...props}
-                favCharacters={favCharacters}
-                onFavClicked={this.handleFavClick}
-              />
-            )}
-          />
-        </Switch>
+        {characters.code === 200 ?
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <CharacterList
+                  {...props}
+                  characters={characters}
+                  favCharacters={favCharacters}
+                  onFavClicked={this.handleFavClick}
+                />
+              )}
+            />
+            <Route
+              path="/:id"
+              render={props => (
+                <DetailedCharacter
+                  {...props}
+                  favCharacters={favCharacters}
+                  onFavClicked={this.handleFavClick}
+                />
+              )}
+            />
+          </Switch> :
+          <p className="text-center">An error occured</p>
+        }
         <Footer attributionText={characters.attributionText} />
       </div>
     );

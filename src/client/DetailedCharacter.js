@@ -34,7 +34,7 @@ export default class DetailedCharacter extends Component {
     let { character } = this.state;
     let returnedDOM = <div />;
 
-    if (character.data) {
+    if (character.data && character.code === 200) {
       [character] = character.data.results;
       const description = character.description || 'No description available';
       const imgURL = character.thumbnail ? `${character.thumbnail.path}/landscape_large.${character.thumbnail.extension}` : '';
@@ -80,6 +80,12 @@ export default class DetailedCharacter extends Component {
             </div>
           </div>
         </div>
+      );
+    } else if (character.code === 404){
+      returnedDOM = (
+        <p className="text-center text-danger">
+          <strong>No character found</strong>
+        </p>
       );
     }
 
