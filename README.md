@@ -2,7 +2,7 @@
 
 Single-page App using Marvel API.
 
-- [Marvel Characters App](#Marvel Characters App)
+- [Marvel Characters](#Marvel-Characters)
   - [Introduction](#introduction)
     - [Development mode](#development-mode)
     - [Production mode](#production-mode)
@@ -16,56 +16,69 @@ Single-page App using Marvel API.
     - [Nodemon](#nodemon)
     - [Express](#express)
     - [Concurrently](#concurrently)
-    - [VSCode + ESLint + Prettier](#vscode--eslint--prettier)
-      - [Installation guide](#installation-guide)
 
 ## Introduction
 
-[Create React App](https://github.com/facebook/create-react-app) is a quick way to get started with React development and it requires no build configuration. But it completely hides the build config which makes it difficult to extend. It also requires some additional work to integrate it with an existing Node.js/Express backend application.
-
-This is a simple full stack [React](https://reactjs.org/) application with a [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/) backend. Client side code is written in React and the backend API is written using Express. This application is configured with [Airbnb's ESLint rules](https://github.com/airbnb/javascript) and formatted through [prettier](https://prettier.io/).
+This is a full stack [React](https://reactjs.org/) application with a [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/) backend. This application was created using the [simple-react-full-stack](https://github.com/crsandeep/simple-react-full-stack) boilerplate.
 
 ### Development mode
 
-In the development mode, we will have 2 servers running. The front end code will be served by the [webpack dev server](https://webpack.js.org/configuration/dev-server/) which helps with hot and live reloading. The server side Express code will be served by a node server using [nodemon](https://nodemon.io/) which helps in automatically restarting the server whenever server side code changes.
+In the development mode, 2 servers are running. The front end code is served by the [webpack dev server](https://webpack.js.org/configuration/dev-server/) which helps with hot and live reloading. The server side Express code is served by a node server using [nodemon](https://nodemon.io/) which helps in automatically restarting the server whenever server side code changes.
 
 ### Production mode
 
-In the production mode, we will have only 1 server running. All the client side code will be bundled into static files using webpack and it will be served by the Node.js/Express application.
+In the production mode, only 1 server is running. All the client side code is bundled into static files using webpack and is served by the Node.js/Express application.
 
 ## Quick Start
 
 ```bash
 # Clone the repository
-git clone https://github.com/crsandeep/simple-react-full-stack
+git clone https://github.com/RenaudAubert/Marvel-Characters
 
 # Go inside the directory
-cd simple-react-full-stack
+cd Marvel-Characters
 
 # Install dependencies
-yarn (or npm install)
+npm install (or yarn)
 
 # Start development server
-yarn dev (or npm run dev)
+npm run dev (or yarn dev)
 
 # Build for production
-yarn build (or npm run build)
+npm run build (or yarn build)
 
 # Start production server
-yarn start (or npm start)
+npm start (or yarn start)
 ```
 
 ## Documentation
 
 ### Folder Structure
 
-All the source code will be inside **src** directory. Inside src, there is client and server directory. All the frontend code (react, css, js and any other assets) will be in client directory. Backend Node.js/Express code will be in the server directory.
+.
+├── public
+│   └── index.html
+├── src                              # Contains all source code
+│   ├── client                       # Frontend code (js/jsx, css)
+│   │   ├── App.css                  # Style for the app
+│   │   ├── App.js                   # Main component
+│   │   ├── Character.js             # Character card in the view
+│   │   ├── CharacterList.js
+│   │   ├── DetailedCharacter.js     # Detailed Character view
+│   │   ├── index.js                 # Entry point to the front application
+│   │   └── layout.js                # Layout component (Header, Footer, etc...)
+│   ├── server                       # Backend code (Node.js/Express)
+│   │   └── index.js                 # Entry point to the server application
+│   └── test                         # Unit tests
+├── .babelrc                         # Babel configuration file
+├── .eslintrc.json                   # ESlint configuration file
+├── nodemon.json                     # nodemon configuration file
+├── README.md
+└── webpack.config.js                # Webpack configuration file
 
 ### Babel
 
-[Babel](https://babeljs.io/) helps us to write code in the latest version of JavaScript. If an environment does not support certain features natively, Babel will help us to compile those features down to a supported version. It also helps us to convert JSX to Javascript.
-
-[.babelrc file](https://babeljs.io/docs/usage/babelrc/) is used describe the configurations required for Babel. Below is the .babelrc file which I am using.
+Below is the .babelrc file which used.
 
 ```javascript
 {
@@ -73,13 +86,11 @@ All the source code will be inside **src** directory. Inside src, there is clien
 }
 ```
 
-Babel requires plugins to do the transformation. Presets are the set of plugins defined by Babel. Preset **env** allows to use babel-preset-es2015, babel-preset-es2016, and babel-preset-es2017 and it will transform them to ES5. Preset **react** allows us to use JSX syntax and it will transform JSX to Javascript.
+Babel requires plugins to do the transformation. Presets are the set of plugins defined by Babel. Preset **env** allows to use babel-preset-es2015, babel-preset-es2016, and babel-preset-es2017 and it will transform them to ES5. Preset **react** allows to use JSX syntax and it will transform JSX to Javascript.
 
 ### ESLint
 
-[ESLint](https://eslint.org/) is a pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
-
-[.eslintrc.json file](<(https://eslint.org/docs/user-guide/configuring)>) (alternatively configurations can we written in Javascript or YAML as well) is used describe the configurations required for ESLint. Below is the .eslintrc.json file which I am using.
+Below is the .eslintrc.json file used.
 
 ```javascript
 {
@@ -96,26 +107,23 @@ Babel requires plugins to do the transformation. Presets are the set of plugins 
 }
 ```
 
-[I am using Airbnb's Javascript Style Guide](https://github.com/airbnb/javascript) which is used by many JavaScript developers worldwide. Since we are going to write both client (browser) and server side (Node.js) code, I am setting the **env** to browser and node. Optionally, we can override the Airbnb's configurations to suit our needs. I have turned off [**no-console**](https://eslint.org/docs/rules/no-console), [**comma-dangle**](https://eslint.org/docs/rules/comma-dangle) and [**react/jsx-filename-extension**](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md) rules.
-
 ### Webpack
 
-[Webpack](https://webpack.js.org/) is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser.
 
-[webpack.config.js](https://webpack.js.org/configuration/) file is used to describe the configurations required for webpack. Below is the webpack.config.js file which I am using.
+[webpack.config.js](https://webpack.js.org/configuration/) file is used to describe the configurations required for webpack. Below is the webpack.config.js file used.
 
 ```javascript
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const outputDirectory = "dist";
+const outputDirectory = 'dist';
 
 module.exports = {
-  entry: "./src/client/index.js",
+  entry: './src/client/index.js',
   output: {
     path: path.join(__dirname, outputDirectory),
-    filename: "bundle.js"
+    filename: 'bundle.js'
   },
   module: {
     rules: [
@@ -123,16 +131,16 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         }
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: "url-loader?limit=100000"
+        loader: 'url-loader?limit=100000'
       }
     ]
   },
@@ -140,14 +148,15 @@ module.exports = {
     port: 3000,
     open: true,
     proxy: {
-      "/api": "http://localhost:8080"
-    }
+      '/api': 'http://localhost:8080'
+    },
+    publicPath: '/'
   },
   plugins: [
     new CleanWebpackPlugin([outputDirectory]),
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
-      favicon: "./public/favicon.ico"
+      template: './public/index.html',
+      favicon: './public/favicon.ico'
     })
   ]
 };
@@ -171,11 +180,22 @@ devServer: {
     open: true,
     proxy: {
         "/api": "http://localhost:8080"
-    }
+    },
+    publicPath: '/'
 }
 ```
 
-[**Port**](https://webpack.js.org/configuration/dev-server/#devserver-port) specifies the Webpack dev server to listen on this particular port (3000 in this case). When [**open**](https://webpack.js.org/configuration/dev-server/#devserver-open) is set to true, it will automatically open the home page on startup. [Proxying](https://webpack.js.org/configuration/dev-server/#devserver-proxy) URLs can be useful when we have a separate API backend development server and we want to send API requests on the same domain. In our case, we have a Node.js/Express backend where we want to send the API requests to.
+[**Port**](https://webpack.js.org/configuration/dev-server/#devserver-port) specifies the Webpack dev server to listen on this particular port. When [**open**](https://webpack.js.org/configuration/dev-server/#devserver-open) is set to true, it will automatically open the home page on startup. [Proxy](https://webpack.js.org/configuration/dev-server/#devserver-proxy) URL to send API requests.
+[publicPath](https://webpack.js.org/guides/public-path/)
+Base path for all assets in the application.
+
+### express
+
+The routing middleware responds to two endpoints:
+- /api/characters (sends the 20 first characters)
+- /api/characters/:id sends a specific
+
+Server cache is used to store information for 24 hours as advised by the [Marvel documentation](https://developer.marvel.com/documentation/generalinfo).
 
 ### Nodemon
 
@@ -191,53 +211,12 @@ nodemon.json file is used to describe the configurations for Nodemon. Below is t
 
 Here, we tell nodemon to watch the files in the directory src/server where out server side code resides. Nodemon will restart the node server whenever a file under src/server directory is modified.
 
-### Express
-
-Express is a web application framework for Node.js. It is used to build our backend API's.
-
-src/server/index.js is the entry point to the server application. Below is the src/server/index.js file
-
-```javascript
-const express = require("express");
-const os = require("os");
-
-const app = express();
-
-app.use(express.static("dist"));
-app.get("/api/getUsername", (req, res) =>
-  res.send({ username: os.userInfo().username })
-);
-app.listen(8080, () => console.log("Listening on port 8080!"));
-```
-
-This starts a server and listens on port 8080 for connections. The app responds with `{username: <username>}` for requests to the URL (/api/getUsername). It is also configured to serve the static files from **dist** directory.
-
 ### Concurrently
 
-[Concurrently](https://github.com/kimmobrunfeldt/concurrently) is used to run multiple commands concurrently. I am using it to run the webpack dev server and the backend node server concurrently in the development environment. Below are the npm/yarn script commands used.
+[Concurrently](https://github.com/kimmobrunfeldt/concurrently) is used to run multiple commands concurrently. Below are the npm/yarn script commands used.
 
 ```javascript
 "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
 "server": "nodemon src/server/index.js",
 "dev": "concurrently \"npm run server\" \"npm run client\""
 ```
-
-### VSCode + ESLint + Prettier
-
-[VSCode](https://code.visualstudio.com/) is a lightweight but powerful source code editor. [ESLint](https://eslint.org/) takes care of the code-quality. [Prettier](https://prettier.io/) takes care of all the formatting.
-
-#### Installation guide
-
-1.  Install [VSCode](https://code.visualstudio.com/)
-2.  Install [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-3.  Install [Prettier extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-4.  Modify the VSCode user settings to add below configuration
-
-    ```javascript
-    "eslint.alwaysShowStatus": true,
-    "eslint.autoFixOnSave": true,
-    "editor.formatOnSave": true,
-    "prettier.eslintIntegration": true
-    ```
-
-Above, we have modified editor configurations. Alternatively, this can be configured at the project level by following [this article](https://medium.com/@netczuk/your-last-eslint-config-9e35bace2f99).

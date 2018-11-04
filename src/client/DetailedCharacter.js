@@ -67,7 +67,7 @@ export default class DetailedCharacter extends Component {
                 <div className="col-sm-6">
                   <h6>
                     Comics
-                    <LinkType character={character} type="comiclink" text={ `(${character.comics.available})`} />
+                    <LinkType character={character} type="comiclink" text={` (${character.comics.available})`} />
                   </h6>
                   {comicsList('comics', 4)}
                   <LinkType character={character} type="comiclink" text="Details" />
