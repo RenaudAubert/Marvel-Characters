@@ -1,6 +1,6 @@
 # Marvel Characters App
 
-Single-page App using Marvel API.
+Fullstack App using Marvel API.
 
 - [Marvel Characters](#Marvel-Characters)
   - [Introduction](#introduction)
