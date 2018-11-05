@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 import { FavButton } from './layout';
 
 const Character = (props) => {
-  const { character, isFav, onFavClicked } = props;
-  const name = character.name || '';
-  const description = character.description || 'No description available for this character';
+  const { character, onFavClicked } = props;
   const imgURL = character.thumbnail && `${character.thumbnail.path}/landscape_large.${character.thumbnail.extension}`;
 
   // Render each character card with image, name and description
@@ -16,8 +14,11 @@ const Character = (props) => {
         <img className="card-img-top" src={imgURL} alt="" />
       </Link>
       <div className="card-body">
-        <h5 className="card-title">{name}</h5>
-        <p className={`card-text ${character.description}` ? '' : ' text-danger'}>{description}</p>
+        <h5 className="card-title">{character.name || ''}</h5>
+        {character.description ?
+          <p className="card-text">{character.description}</p> :
+          <p className="card-text text-danger">{character.description}</p>
+        }
       </div>
       <div className="card-footer text-muted">
         <div className="d-flex justify-content-between align-items-center">
@@ -25,7 +26,7 @@ const Character = (props) => {
             <Link to={`/${character.id}`} className="text-dark">
               <i className="fas fa-search fa-lg align-bottom" />
             </Link>
-            <FavButton characterId={character.id} isFav={isFav} onFavClicked={onFavClicked} />
+            <FavButton characterId={character.id} isFav={character.favorite} onFavClicked={onFavClicked} />
           </div>
         </div>
       </div>
@@ -33,17 +34,15 @@ const Character = (props) => {
   );
 };
 
+export { Character as default };
+
 Character.propTypes = {
   character: PropTypes.shape({
     id: PropTypes.number,
     description: PropTypes.string,
     name: PropTypes.string,
     thumbnail: PropTypes.object,
+    favorite: PropTypes.bool
   }).isRequired,
-  isFav: PropTypes.bool,
   onFavClicked: PropTypes.func.isRequired
-};
-
-Character.defaultProps = {
-  isFav: false
 };

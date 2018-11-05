@@ -8,86 +8,98 @@ import './App.css';
 export default class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      characters: {},
-      favCharacters: []
+      characters: [],
+      code: 200,
+      attributionText: ""
     };
 
-    this.handleFavClick = this.handleFavClick.bind(this);
-    this.handleDeleteFav = this.handleDeleteFav.bind(this);
+    this.handleFavChange = this.handleFavChange.bind(this);
+    this.findCharacter = this.findCharacter.bind(this);
   }
 
   // Get characters from Marvel API if component is mounted
   componentDidMount() {
     fetch('/api/characters')
-      .then(res => res.json())
-      .then(characters => this.setState({ characters }));
+    .then(res => res.json())
+    .then(apiResult => {
+      // if code === 200 request succeded
+      // also checks if there are characters returned
+      if (apiResult.code === 200 && apiResult.data.results.length) {
+        // Default is no favorite character
+        apiResult.data.results.forEach(character => character.favorite = false);
+        this.setState({
+          characters: apiResult.data.results,
+          code: apiResult.code,
+          attributionText: apiResult.attributionText
+        });
+      }
+    });
   }
 
-  // Add new id into favorite array
-  handleFavClick(id) {
-    const { characters, favCharacters } = this.state;
+  // Find character in characters state using id
+  findCharacter(id = 0) {
+    let { characters } = this.state;
+    return characters.find(character => id === character.id);
+  }
 
-    // If id already in favCharacters delete character from favorite
-    if (favCharacters.findIndex(character => character.id === id) !== -1) {
-      this.handleDeleteFav(id);
-    } else {
-      // Checks whether given id is found in characters array
-      const foundCharacter = characters.data.results.find(character => id === character.id);
-      if (foundCharacter) {
-        this.setState(prevState => ({
-          favCharacters: [...prevState.favCharacters, { id, name: foundCharacter.name }]
-        }));
-      }
+  // Change favorite value for a given character
+  handleFavChange(id) {
+    let characters = [...this.state.characters];
+    let character = this.findCharacter(id);
+    const index = characters.findIndex(character => id === character.id);
+
+    if (character && index !== -1) {
+      character = {...character};
+      character.favorite = !character.favorite;
+      characters[index] = character;
+      this.setState({characters});
     }
   }
 
-  // Delete character from favorite
-  handleDeleteFav(id) {
-    this.setState(prevState => ({
-      // Keep all elements except those matching id
-      favCharacters: prevState.favCharacters.filter(character => character.id !== id)
-    }));
-  }
-
   render() {
-    const { characters, favCharacters } = this.state;
+    const { characters, code, attributionText } = this.state;
+    // Filter charater to keep favorites
+    const favCharacters = characters.filter(character => character.favorite === true);
 
     // View composed of a header, main and foter component
     // Switch is used to render the first component that match the path
     return (
       <div>
-        <Header favCharacters={favCharacters} onDeleteFav={this.handleDeleteFav} />
-        {(characters.code === 200 && characters.data)
-          ? (
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={props => (
-                  <CharacterList
-                    {...props}
-                    characters={characters.data.results}
-                    favCharacters={favCharacters}
-                    onFavClicked={this.handleFavClick}
-                  />
-                )}
+        <Header favCharacters={favCharacters} onDeleteFav={this.handleFavChange} />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <CharacterList
+                {...props}
+                characters={characters}
+                onFavClicked={this.handleFavChange}
               />
-              <Route
-                path="/:id"
-                render={props => (
-                  <DetailedCharacter
-                    {...props}
-                    favCharacters={favCharacters}
-                    onFavClicked={this.handleFavClick}
-                  />
-                )}
-              />
-            </Switch>
-          )
-          : <div>No characters found</div>
-        }
-        <Footer attributionText={characters.attributionText} />
+            )}
+          />
+          <Route
+            path="/:id"
+            render={props => {
+              const { match } = props;
+              // params id is a string
+              const id = Number(match.params.id);
+              const character = this.findCharacter(id);
+
+              return (
+                <DetailedCharacter
+                  {...props}
+                  shouldFetch={character === undefined}
+                  character={character}
+                  onFavClicked={this.handleFavChange}
+                />
+              );
+            }}
+          />
+        </Switch>
+        <Footer attributionText={attributionText} />
       </div>
     );
   }

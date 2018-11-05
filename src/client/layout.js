@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export const FavElement = (props) => {
-  const { character, onDeleteFav } = props;
+  const { id, name, onDeleteFav } = props;
 
   const deleteFav = () => {
-    onDeleteFav(character.id);
+    onDeleteFav(id);
   };
 
   return (
     <div className="btn-group" role="group" aria-label="Favorite List">
-      <Link to={`/${character.id}`} className="dropdown-item btn btn-secondary text-center">
-        {character.name}
+      <Link to={`/${id}`} className="dropdown-item btn btn-secondary text-center">
+        {name}
       </Link>
       <button type="button" className="close btn btn-secondary" onClick={deleteFav}>
         <i className="fa fa-trash" aria-hidden="true" />
@@ -26,7 +26,12 @@ export const Header = (props) => {
 
   // for each favorite character create a favElement component
   const favList = favCharacters.map(character => (
-    <FavElement character={character} onDeleteFav={onDeleteFav} key={character.id} />
+    <FavElement
+      id={character.id}
+      name={character.name}
+      onDeleteFav={onDeleteFav}
+      key={character.id}
+    />
   ));
 
   return (
@@ -88,18 +93,18 @@ export const LinkType = (props) => {
 };
 
 FavElement.propTypes = {
-  character: PropTypes.shape({
-    id: PropTypes.number,
-    description: PropTypes.string,
-    name: PropTypes.string,
-    thumbnail: PropTypes.object,
-  }).isRequired,
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
   onDeleteFav: PropTypes.func.isRequired
 };
 
 Header.propTypes = {
-  favCharacters: PropTypes.arrayOf(PropTypes.object).isRequired,
+  favCharacters: PropTypes.arrayOf(PropTypes.object),
   onDeleteFav: PropTypes.func.isRequired
+};
+
+Header.defaultProps = {
+  favCharacters: []
 };
 
 Footer.propTypes = {
