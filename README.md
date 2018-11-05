@@ -57,6 +57,7 @@ npm start (or yarn start)
 
 ```bash
 .
+├── __test__                         # Unit tests
 ├── public
 │   └── index.html
 ├── src                              # Contains all source code
@@ -68,9 +69,8 @@ npm start (or yarn start)
 │   │   ├── DetailedCharacter.js     # Detailed Character view
 │   │   ├── index.js                 # Entry point to the front application
 │   │   └── layout.js                # Layout component (Header, Footer, etc...)
-│   ├── server                       # Backend code (Node.js/Express)
-│   │   └── index.js                 # Entry point to the server application
-│   └── test                         # Unit tests
+│   └── server                       # Backend code (Node.js/Express)
+│       └── index.js                 # Entry point to the server application
 ├── .babelrc                         # Babel configuration file
 ├── .eslintrc.json                   # ESlint configuration file
 ├── nodemon.json                     # nodemon configuration file
