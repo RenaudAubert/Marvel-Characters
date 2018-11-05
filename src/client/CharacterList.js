@@ -6,17 +6,19 @@ const CharacterList = (props) => {
   const { characters, onFavClicked } = props;
   let characterList = <p>No characters found</p>;
 
-  characterList = characters.map((character) => {
-    // For each character create a Character component (card in the view)
-    return (
-      <div className="col-md-4 pt-2" key={character.id}>
-        <Character
-          character={character}
-          onFavClicked={onFavClicked}
-        />
-      </div>
-    );
-  });
+  if (characters.length) {
+    characterList = characters.map((character) => {
+      // For each character create a Character component (card in the view)
+      return (
+        <div className="col-md-4 pt-2" key={character.id}>
+          <Character
+            character={character}
+            onFavClicked={onFavClicked}
+          />
+        </div>
+      );
+    });
+  }
 
   return (
     <main role="main">
@@ -34,6 +36,10 @@ const CharacterList = (props) => {
 export { CharacterList as default };
 
 CharacterList.propTypes = {
-  characters: PropTypes.arrayOf(PropTypes.object).isRequired,
+  characters: PropTypes.arrayOf(PropTypes.object),
   onFavClicked: PropTypes.func.isRequired,
+};
+
+CharacterList.defaultProps = {
+  characters: []
 };

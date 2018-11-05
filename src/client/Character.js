@@ -46,3 +46,7 @@ Character.propTypes = {
   }).isRequired,
   onFavClicked: PropTypes.func.isRequired
 };
+
+Character.defaultProps = {
+  character: {}
+};
