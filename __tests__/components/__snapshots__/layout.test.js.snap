@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FavButton /> return() renders the FavButton component 1`] = `
+<button
+  className="btn btn-sm fa-button"
+  onClick={[Function]}
+  type="button"
+>
+  <i
+    className="far fa-star text-warning fa-lg"
+  />
+</button>
+`;
+
+exports[`<FavElement /> return() renders the FavElement component 1`] = `
+<div
+  aria-label="Favorite List"
+  className="btn-group"
+  role="group"
+>
+  <Link
+    className="dropdown-item btn btn-secondary text-center"
+    replace={false}
+    to="/1011334"
+  >
+    3-D Man
+  </Link>
+  <button
+    className="close btn btn-secondary"
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      aria-hidden="true"
+      className="fa fa-trash"
+    />
+  </button>
+</div>
+`;
+
+exports[`<Footer /> return() renders the Footer component with props 1`] = `
+<footer
+  className="footer text-muted"
+>
+  <div
+    className="container"
+  >
+    test
+  </div>
+</footer>
+`;
+
+exports[`<Header /> return() renders the Header component with props 1`] = `
+<header>
+  <div
+    className="navbar navbar-dark bg-dark box-shadow"
+  >
+    <div
+      className="container d-flex justify-content-between"
+    >
+      <Link
+        className="navbar-brand d-flex align-items-center"
+        replace={false}
+        to="/"
+      >
+        Marvel Heroes
+      </Link>
+      <div
+        className="dropdown"
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="true"
+          className="btn btn-secondary"
+          data-toggle="dropdown"
+          id="dropdownFavorite"
+          type="button"
+        >
+          My Favorites
+        </button>
+        <div
+          aria-labelledby="dropdownMenuButton"
+          className="dropdown-menu"
+        >
+          <FavElement
+            id={1011334}
+            key="1011334"
+            name="3-D Man"
+            onDeleteFav={[MockFunction]}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+`;

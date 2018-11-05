@@ -17,7 +17,7 @@ exports[`<CharacterList /> return() renders the CharacterList component 1`] = `
           className="col-md-4 pt-2"
           key="1011334"
         >
-          <[object Object]
+          <Character
             character={
               Object {
                 "comics": Object {
@@ -237,7 +237,6 @@ exports[`<CharacterList /> return() renders the CharacterList component 1`] = `
                 ],
               }
             }
-            isFav={false}
             onFavClicked={[MockFunction]}
           />
         </div>
