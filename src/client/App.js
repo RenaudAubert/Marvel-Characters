@@ -46,13 +46,17 @@ export default class App extends Component {
 
   // Change favorite value for a given character
   handleFavChange(id) {
+    // Shallow copy of characters
     let characters = [...this.state.characters];
     let character = this.findCharacter(id);
     const index = characters.findIndex(character => id === character.id);
 
     if (character && index !== -1) {
+      // Shallow copy of character to mutate
       character = {...character};
+      // reverse favorite value
       character.favorite = !character.favorite;
+      // Array is mutated (it is a copy)
       characters[index] = character;
       this.setState({characters});
     }
